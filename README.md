@@ -9,16 +9,16 @@ platform-specific requirements.
 The system demonstrates three common approaches to theming:
 1. Default theme (`_default`): Provides a complete set of baseline tokens that other themes can extend or override, ensuring no missing values
 2. Single brand theme (`cco`): Shows how to customize tokens for a specific brand while inheriting sensible defaults
-3. Multi-brand system (`bbi_*`): Illustrates how to manage a family of related brands with shared elements and brand-specific customizations
+3. Multi-brand system using Blooming Brands International (`bbi_*`) as an example: Illustrates how to manage a family of related brands with shared elements and brand-specific customizations
 
 - Multiple brands
   - Default (`_default`)
   - ClearCompany (`cco`)
   - BloominBrands International (`bbi_default`)
-  - Bonefish Grill (`bbi-bonefish`)
-  - Carraba's Italian Grill (`bbi-carrabas`)
-  - Fleming's Prime Steakhouse & Wine Bar (`bbi-flemings`)
-  - Outback Steakhouse (`bbi-outback`)
+    - Bonefish Grill (`bbi-bonefish`)
+    - Carraba's Italian Grill (`bbi-carrabas`)
+    - Fleming's Prime Steakhouse & Wine Bar (`bbi-flemings`)
+    - Outback Steakhouse (`bbi-outback`)
 - Multiple platforms (Web, iOS, Android)
 - Shared global tokens across all products
 
