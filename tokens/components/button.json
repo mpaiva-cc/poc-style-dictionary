@@ -1,0 +1,58 @@
+{
+  "component": {
+    "button": {
+      "primary": {
+        "background": {
+          "value": "{color.brand.primary.value}",
+          "type": "color"
+        },
+        "text": {
+          "value": "#FFFFFF",
+          "type": "color"
+        },
+        "border": {
+          "radius": {
+            "value": "{button.border.radius.value}",
+            "type": "dimension"
+          }
+        },
+        "padding": {
+          "vertical": {
+            "value": "8px",
+            "type": "dimension"
+          },
+          "horizontal": {
+            "value": "16px",
+            "type": "dimension"
+          }
+        }
+      },
+      "secondary": {
+        "background": {
+          "value": "{color.brand.secondary.value}",
+          "type": "color"
+        },
+        "text": {
+          "value": "#FFFFFF",
+          "type": "color"
+        },
+        "border": {
+          "radius": {
+            "value": "{button.border.radius.value}",
+            "type": "dimension"
+          }
+        },
+        "padding": {
+          "vertical": {
+            "value": "8px",
+            "type": "dimension"
+          },
+          "horizontal": {
+            "value": "16px",
+            "type": "dimension"
+          }
+        }
+      }
+    }
+  }
+} 

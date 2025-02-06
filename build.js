@@ -1,37 +1,66 @@
 import StyleDictionary from 'style-dictionary';
 import { formats, transformGroups } from 'style-dictionary/enums';
 
-const { androidColors, androidDimens, androidFontDimens, iosMacros, scssVariables } = formats;
+const {
+  androidColors,
+  androidDimens,
+  androidFontDimens,
+  iosMacros,
+  scssVariables,
+} = formats;
 const { web } = transformGroups;
+
+const BRANDS = [
+  '_default',
+  'cco_default',
+  'bbi_default',
+  'bbi-bonefish',
+  'bbi-carrabas',
+  'bbi-flemings',
+  'bbi-outback',
+];
+const PLATFORMS = ['web', 'ios', 'android'];
 
 // Register DTCG JSON format
 StyleDictionary.registerFormat({
   name: 'dtcg/json',
-  format: function({ dictionary }) {
+  format: function ({ dictionary }) {
     const transformedTokens = dictionary.allTokens.reduce((acc, token) => {
-      // Convert path array to nested object structure
-      let current = acc;
-      const path = token.path;
-      
-      // Navigate through the path except the last item
-      for (let i = 0; i < path.length - 1; i++) {
-        const segment = path[i];
-        current[segment] = current[segment] || {};
-        current = current[segment];
+      if (!token.path || !Array.isArray(token.path)) {
+        console.warn(`Invalid token path for token:`, token);
+        return acc;
       }
-      
-      // Set the value at the final path segment
-      const lastSegment = path[path.length - 1];
-      current[lastSegment] = {
-        $value: token.value,
-        $type: token.type || 'unknown'
-      };
-      
-      return acc;
+
+      try {
+        let current = acc;
+        const path = token.path;
+
+        for (let i = 0; i < path.length - 1; i++) {
+          const segment = path[i];
+          if (typeof segment !== 'string') {
+            console.warn(`Invalid path segment for token:`, token);
+            return acc;
+          }
+          current[segment] = current[segment] || {};
+          current = current[segment];
+        }
+
+        const lastSegment = path[path.length - 1];
+        current[lastSegment] = {
+          $value: token.value,
+          $type: token.type || 'unknown',
+          ...(token.description && { $description: token.description }),
+        };
+
+        return acc;
+      } catch (error) {
+        console.error(`Error processing token:`, token, error);
+        return acc;
+      }
     }, {});
 
     return JSON.stringify(transformedTokens, null, 2);
-  }
+  },
 });
 
 // HAVE THE STYLE DICTIONARY CONFIG DYNAMICALLY GENERATED
@@ -41,6 +70,7 @@ function getStyleDictionaryConfig(brand, platform) {
       `tokens/brands/${brand}/*.json`,
       'tokens/globals/**/*.json',
       `tokens/platforms/${platform}/*.json`,
+      'tokens/components/**/*.json'
     ],
     platforms: {
       web: {
@@ -53,8 +83,8 @@ function getStyleDictionaryConfig(brand, platform) {
           },
           {
             destination: 'tokens.json',
-            format: 'dtcg/json'
-          }
+            format: 'dtcg/json',
+          },
         ],
       },
       android: {
@@ -84,11 +114,11 @@ function getStyleDictionaryConfig(brand, platform) {
             format: iosMacros,
           },
         ],
-      }
+      },
     },
     log: {
-      verbosity: 'verbose'
-    }
+      verbosity: 'verbose',
+    },
   };
 }
 
@@ -97,15 +127,27 @@ console.log('Build started...');
 /* 
 PROCESS THE DESIGN TOKENS FOR THE DIFFEREN BRANDS AND PLATFORMS
 
-*/ 
+*/
 
-['_default','cco_default','bbi_default', 'bbi-bonefish', 'bbi-carrabas', 'bbi-flemings', 'bbi-outback'].map(function (brand) {
+[
+  '_default',
+  'cco_default',
+  'bbi_default',
+  'bbi-bonefish',
+  'bbi-carrabas',
+  'bbi-flemings',
+  'bbi-outback',
+].map(function (brand) {
   ['web', 'ios', 'android'].map(function (platform) {
-    console.log('\n==============================================');
-    console.log(`\nProcessing: [${platform}] [${brand}]`);
+    try {
+      console.log('\n==============================================');
+      console.log(`\nProcessing: [${platform}] [${brand}]`);
 
-    const sd = new StyleDictionary(getStyleDictionaryConfig(brand, platform));
-    sd.buildPlatform(platform);
+      const sd = new StyleDictionary(getStyleDictionaryConfig(brand, platform));
+      sd.buildPlatform(platform);
+    } catch (error) {
+      console.error(`Error processing ${brand} for ${platform}:`, error);
+    }
   });
 });
 

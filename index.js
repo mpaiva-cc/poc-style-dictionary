@@ -1,3 +1,3 @@
 const tokens = require('./build');
 
-module.exports = tokens; 
+module.exports = tokens;

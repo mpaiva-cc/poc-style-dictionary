@@ -1,0 +1,11 @@
+# Build output
+dist/
+build/
+coverage/
+
+# Dependencies
+node_modules/
+
+# Other files
+*.min.js
+*.bundle.js 

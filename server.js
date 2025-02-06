@@ -26,18 +26,27 @@ app.post('/api/tokens/:brand', async (req, res) => {
   try {
     const brand = req.params.brand;
     const tokens = req.body;
-    
+
     // Save to tokens/brands/{brand}/tokens.json
-    const brandTokensPath = path.join(__dirname, `tokens/brands/${brand}/tokens.json`);
-    await fs.promises.writeFile(brandTokensPath, JSON.stringify(tokens, null, 2));
-    
+    const brandTokensPath = path.join(
+      __dirname,
+      `tokens/brands/${brand}/tokens.json`
+    );
+    await fs.promises.writeFile(
+      brandTokensPath,
+      JSON.stringify(tokens, null, 2)
+    );
+
     // Trigger build
     exec('node build.js', (error, stdout, stderr) => {
       if (error) {
         console.error(`Build error: ${error}`);
         return res.status(500).json({ error: error.message });
       }
-      res.json({ message: 'Tokens updated and build completed', output: stdout });
+      res.json({
+        message: 'Tokens updated and build completed',
+        output: stdout,
+      });
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,4 +55,4 @@ app.post('/api/tokens/:brand', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Token editor app listening at http://localhost:${port}`);
-}); 
+});

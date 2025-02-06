@@ -1,0 +1,32 @@
+{
+  "component": {
+    "card": {
+      "background": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "border": {
+        "radius": {
+          "value": "8px",
+          "type": "dimension"
+        },
+        "color": {
+          "value": "{color.base.gray.light.value}",
+          "type": "color"
+        },
+        "width": {
+          "value": "1px",
+          "type": "dimension"
+        }
+      },
+      "padding": {
+        "value": "16px",
+        "type": "dimension"
+      },
+      "shadow": {
+        "value": "0 2px 4px rgba(0,0,0,0.1)",
+        "type": "shadow"
+      }
+    }
+  }
+} 
