@@ -4,6 +4,14 @@ This repository contains our design tokens system that supports multiple brands 
 a single SaaS application. This system allows us to maintain consistent branding while accommodating
 platform-specific requirements.
 
+![design token architecture diagram that showcases how design tokens flow through various repositories, tools, and platforms.](diagram.png)
+
+The image is a design token architecture diagram that showcases how design tokens flow through various repositories, tools, and platforms. 
+
+The branded generated tokens are passed on to the Mantine UI library to be used in the application.
+
+The [mantine-vars.md](mantine-vars.md) file contains the variables that need to be mapped to the Mantine UI library.
+
 ## System Overview
 
 The system demonstrates three common approaches to theming:
