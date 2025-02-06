@@ -1,6 +1,6 @@
-# Managing multi-brand Design Token System for SaaS applications
+# Managing multi-brand Design Tokens System for SaaS applications
 
-This repository contains our design token system that supports multiple brands and platforms across
+This repository contains our design tokens system that supports multiple brands and platforms across
 a single SaaS application. This system allows us to maintain consistent branding while accommodating
 platform-specific requirements.
 
